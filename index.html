@@ -162,14 +162,7 @@
             <li><strong>Memory allocation:</strong> You pay for configured memory, not actual usage</li>
         </ul>
         
-        <div class="highlight">
-            <h4>Cost Optimization Tips:</h4>
-            <ul>
-                <li>Right-size memory (use AWS Lambda Power Tuning)</li>
-                <li>Set appropriate timeouts</li>
-                <li>Use provisioned concurrency sparingly ($0.015 per hour per 100ms)</li>
-            </ul>
-        </div>
+    
     </div>
 
     <div class="card">
@@ -185,14 +178,7 @@
             <li>$0.06 per GB data transfer out</li>
         </ul>
         
-        <div class="highlight">
-            <h4>Cost Optimization Tips:</h4>
-            <ul>
-                <li>Use HTTP API when possible (saves ~40%)</li>
-                <li>Enable caching ($0.02 per hour for 0.5GB cache)</li>
-                <li>Compress responses to reduce data transfer</li>
-            </ul>
-        </div>
+        
     </div>
 
     <div class="card">
@@ -204,14 +190,7 @@
             <li>Data transfer: $0.09 per GB out to internet</li>
         </ul>
         
-        <div class="highlight">
-            <h4>Cost Optimization Tips:</h4>
-            <ul>
-                <li>Use CloudFront ($0.085/GB with free tier)</li>
-                <li>Enable S3 Transfer Acceleration only if needed</li>
-                <li>Set lifecycle policies for old files</li>
-            </ul>
-        </div>
+        
     </div>
 
     <div class="card">
@@ -223,14 +202,7 @@
             <li>SMS MFA: $0.01 per SMS (varies by country)</li>
         </ul>
         
-        <div class="highlight">
-            <h4>Cost Optimization Tips:</h4>
-            <ul>
-                <li>Use email instead of SMS verification when possible</li>
-                <li>Implement server-side token caching</li>
-                <li>Monitor MAU counts (inactive users still count if they log in)</li>
-            </ul>
-        </div>
+       
     </div>
 
     <div class="card">
@@ -243,14 +215,7 @@
             <li>Additional charges for Bot Control and Fraud Control features</li>
         </ul>
         
-        <div class="highlight">
-            <h4>Cost Optimization Tips:</h4>
-            <ul>
-                <li>Consolidate rules to minimize per-rule charges</li>
-                <li>Use CloudFront with WAF for reduced data transfer costs</li>
-                <li>Regularly review and remove unused rules</li>
-            </ul>
-        </div>
+        
     </div>
 
     <h2>Organization Size Cost Estimates</h2>
