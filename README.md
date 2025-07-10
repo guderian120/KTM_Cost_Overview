@@ -7,7 +7,7 @@ This project provides a comprehensive cost analysis dashboard for KTM's AWS infr
 ## Live Demo
 
 - **Main Dashboard**: [KTM LIVE](https://dangf6yk5kpeq.cloudfront.net)
-- **Cost Overview Page**: [cost overview]([https://github.io/ktm_cost_overview](https://guderian120.github.io/KTM_Cost_Overview/))
+- **Cost Overview Page**: [cost overview](https://guderian120.github.io/KTM_Cost_Overview)
 
 ## Features
 
