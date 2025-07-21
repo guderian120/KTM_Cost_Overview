@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KTM Cost Analysis</title>
+    <title>Kryotech Software Solution - Architecture Cost Analysis</title>
     <style>
         :root {
             --primary: #232f3e;
@@ -130,92 +130,137 @@
             height: 40px;
             margin-bottom: 1rem;
         }
+        .architecture-flow {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f5f5f5;
+            border-radius: 6px;
+        }
+        .flow-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: var(--secondary);
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Kryotech Software Solution</h1>
-        <p>Comprehensive cost breakdown for KTM</p>
+        <p>High-Availability Architecture Cost Analysis</p>
     </header>
 
     <div class="card">
         <h2>Architecture Overview</h2>
-        <p>This cost analysis covers a complete serverless application stack on AWS with:</p>
-        <ul>
-            <li>AWS Lambda for compute</li>
-            <li>API Gateway for REST APIs</li>
-            <li>S3 for static website hosting</li>
-            <li>CloudFront for content delivery</li>
-            <li>Cognito for user authentication</li>
-            <li>WAF for web application security</li>
-        </ul>
+        <p>This cost analysis covers our modern cloud-native architecture:</p>
+        
+        <div class="architecture-flow">
+            <div class="flow-step">
+                <span class="flow-icon">①</span>
+                <div>
+                    <strong>Frontend:</strong> CloudFront + S3 for static asset hosting with global CDN caching
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-icon">②</span>
+                <div>
+                    <strong>API Layer:</strong> API Gateway proxies requests to internal services
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-icon">③</span>
+                <div>
+                    <strong>Compute:</strong> Network Load Balancer (private subnet) → ECS Fargate tasks
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-icon">④</span>
+                <div>
+                    <strong>Deployments:</strong> Blue/Green deployments with CodeDeploy for zero downtime
+                </div>
+            </div>
+            <div class="flow-step">
+                <span class="flow-icon">⑤</span>
+                <div>
+                    <strong>Automation:</strong> GitHub Actions CI/CD + Terraform IaC
+                </div>
+            </div>
+        </div>
     </div>
 
     <h2>Detailed Service Cost Breakdown</h2>
 
     <div class="card">
-        <h3>1. AWS Lambda Costs</h3>
-        <p><strong>Pricing Factors:</strong></p>
+        <h3>1. CloudFront + S3 (Frontend)</h3>
+        <p><strong>CloudFront Pricing:</strong></p>
         <ul>
-            <li><strong>Execution time:</strong> $0.0000166667 per GB-second</li>
-            <li><strong>Requests:</strong> $0.20 per 1M requests</li>
-            <li><strong>Memory allocation:</strong> You pay for configured memory, not actual usage</li>
+            <li>$0.085 per GB data transfer out (first 10TB)</li>
+            <li>$0.0075 per 10,000 HTTP/HTTPS requests</li>
+            <li>Free: Invalidations (first 1,000 paths/month)</li>
         </ul>
-        
-    
+        <p><strong>S3 Pricing:</strong></p>
+        <ul>
+            <li>$0.023 per GB/month (standard storage)</li>
+            <li>$0.0004 per 1,000 GET requests</li>
+        </ul>
     </div>
 
     <div class="card">
-        <h3>2. API Gateway Costs</h3>
+        <h3>2. API Gateway</h3>
         <p><strong>REST API Pricing:</strong></p>
         <ul>
-            <li>$1.00 per million API calls</li>
+            <li>$3.50 per million API calls</li>
             <li>$0.09 per GB data transfer out</li>
+            <li>Additional caching costs if enabled</li>
         </ul>
-        <p><strong>HTTP API Pricing (cheaper alternative):</strong></p>
-        <ul>
-            <li>$0.80 per million requests</li>
-            <li>$0.06 per GB data transfer out</li>
-        </ul>
-        
-        
     </div>
 
     <div class="card">
-        <h3>3. S3 Static Website Hosting Costs</h3>
-        <p><strong>Pricing Factors:</strong></p>
+        <h3>3. Network Load Balancer + ECS</h3>
+        <p><strong>NLB Pricing:</strong></p>
         <ul>
-            <li>Storage: $0.023 per GB/month (standard storage)</li>
-            <li>Requests: $0.0004 per 1,000 GET requests</li>
-            <li>Data transfer: $0.09 per GB out to internet</li>
+            <li>$0.0225 per NLB hour (~$16.20/month)</li>
+            <li>$0.006 per GB processed by NLB</li>
         </ul>
-        
-        
+        <p><strong>ECS Fargate Pricing:</strong></p>
+        <ul>
+            <li>$0.04048 per vCPU per hour (~$29.15/month)</li>
+            <li>$0.004445 per GB per hour (~$3.20/month)</li>
+            <li>Example: 2 vCPU + 4GB task = ~$0.20/hour (~$144/month)</li>
+        </ul>
     </div>
 
     <div class="card">
-        <h3>4. Amazon Cognito Costs</h3>
-        <p><strong>User Pools Pricing:</strong></p>
+        <h3>4. Blue/Green Deployments</h3>
+        <p><strong>CodeDeploy Pricing:</strong></p>
         <ul>
-            <li>MAUs (Monthly Active Users): $0.005 per MAU</li>
-            <li>First 50,000 MAUs free each month</li>
-            <li>SMS MFA: $0.01 per SMS (varies by country)</li>
+            <li>$0.02 per active deployment hour</li>
+            <li>Additional compute costs during transition</li>
         </ul>
-        
-       
+        <div class="highlight">
+            <strong>Note:</strong> Blue/Green requires running duplicate tasks during cutover (typically 1-2 hours)
+        </div>
     </div>
 
     <div class="card">
-        <h3>5. AWS WAF Costs</h3>
-        <p><strong>Pricing Factors:</strong></p>
+        <h3>5. DevOps Tooling</h3>
+        <p><strong>GitHub Actions:</strong></p>
         <ul>
-            <li>$0.60 per web ACL per month</li>
-            <li>$0.60 per rule per month</li>
-            <li>$1.00 per million requests processed</li>
-            <li>Additional charges for Bot Control and Fraud Control features</li>
+            <li>Free: 2,000 minutes/month (Linux)</li>
+            <li>$0.008 per additional minute</li>
         </ul>
-        
-        
+        <p><strong>Terraform Cloud:</strong></p>
+        <ul>
+            <li>Free: Up to 5 users (Community tier)</li>
+            <li>$20/user/month (Team tier)</li>
+        </ul>
     </div>
 
     <h2>Organization Size Cost Estimates</h2>
@@ -223,16 +268,15 @@
     <div class="pricing-category">
         <div class="pricing-tier">
             <div class="tier-header">
-                <h3>Small Business</h3>
-                <p>10-500 employees</p>
+                <h3>Development</h3>
+                <p>Low traffic (testing)</p>
             </div>
-            <div class="price">$50 - $500/month</div>
+            <div class="price">$100 - $300/month</div>
             <ul class="feature-list">
-                <li>50,000 - 500,000 MAUs</li>
-                <li>5-50GB storage</li>
-                <li>1-10M Lambda invocations</li>
-                <li>Basic WAF protection</li>
-                <li>Email authentication</li>
+                <li>1 CloudFront distribution</li>
+                <li>1-2 ECS tasks (minimal scaling)</li>
+                <li><10GB S3 storage</li>
+                <li>Basic monitoring</li>
             </ul>
             <h4>Example Monthly Cost:</h4>
             <table class="cost-table">
@@ -241,44 +285,39 @@
                     <th>Cost</th>
                 </tr>
                 <tr>
-                    <td>Lambda</td>
-                    <td>$10 - $100</td>
+                    <td>CloudFront + S3</td>
+                    <td>$20 - $50</td>
                 </tr>
                 <tr>
                     <td>API Gateway</td>
-                    <td>$10 - $100</td>
+                    <td>$10 - $30</td>
                 </tr>
                 <tr>
-                    <td>S3 + CloudFront</td>
-                    <td>$20 - $200</td>
+                    <td>NLB + ECS</td>
+                    <td>$50 - $150</td>
                 </tr>
                 <tr>
-                    <td>Cognito</td>
-                    <td>$0 - $250 (first 50k MAUs free)</td>
-                </tr>
-                <tr>
-                    <td>WAF</td>
-                    <td>$10 - $50</td>
+                    <td>DevOps Tools</td>
+                    <td>$0 - $20</td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$50 - $500</strong></td>
+                    <td><strong>$100 - $300</strong></td>
                 </tr>
             </table>
         </div>
 
         <div class="pricing-tier">
             <div class="tier-header">
-                <h3>Medium Enterprise</h3>
-                <p>500-25,000 employees</p>
+                <h3>Production (Medium)</h3>
+                <p>10K-100K users</p>
             </div>
-            <div class="price">$500 - $5,000/month</div>
+            <div class="price">$500 - $2,000/month</div>
             <ul class="feature-list">
-                <li>500,000 - 5M MAUs</li>
-                <li>50-500GB storage</li>
-                <li>10-100M Lambda invocations</li>
-                <li>Advanced WAF protection</li>
-                <li>SMS/Email authentication</li>
+                <li>Auto-scaling ECS (2-10 tasks)</li>
+                <li>WAF protection</li>
+                <li>50-200GB S3 storage</li>
+                <li>Daily deployments</li>
             </ul>
             <h4>Example Monthly Cost:</h4>
             <table class="cost-table">
@@ -287,44 +326,39 @@
                     <th>Cost</th>
                 </tr>
                 <tr>
-                    <td>Lambda</td>
-                    <td>$100 - $1,000</td>
+                    <td>CloudFront + S3</td>
+                    <td>$100 - $400</td>
                 </tr>
                 <tr>
                     <td>API Gateway</td>
-                    <td>$100 - $1,000</td>
+                    <td>$50 - $200</td>
                 </tr>
                 <tr>
-                    <td>S3 + CloudFront</td>
-                    <td>$200 - $2,000</td>
+                    <td>NLB + ECS</td>
+                    <td>$300 - $1,200</td>
                 </tr>
                 <tr>
-                    <td>Cognito</td>
-                    <td>$250 - $2,500</td>
-                </tr>
-                <tr>
-                    <td>WAF</td>
-                    <td>$50 - $500</td>
+                    <td>DevOps Tools</td>
+                    <td>$50 - $200</td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$500 - $5,000</strong></td>
+                    <td><strong>$500 - $2,000</strong></td>
                 </tr>
             </table>
         </div>
 
         <div class="pricing-tier">
             <div class="tier-header">
-                <h3>Large Enterprise</h3>
-                <p>25,000+ employees</p>
+                <h3>Enterprise</h3>
+                <p>100K+ users</p>
             </div>
-            <div class="price">$5,000+/month</div>
+            <div class="price">$2,000+/month</div>
             <ul class="feature-list">
-                <li>5M+ MAUs</li>
-                <li>500GB+ storage</li>
-                <li>100M+ Lambda invocations</li>
-                <li>Enterprise WAF with Bot Control</li>
-                <li>Multi-factor authentication</li>
+                <li>Multi-region failover</li>
+                <li>Advanced WAF + DDoS protection</li>
+                <li>200GB+ S3 storage</li>
+                <li>CI/CD with canary deployments</li>
             </ul>
             <h4>Example Monthly Cost:</h4>
             <table class="cost-table">
@@ -333,116 +367,43 @@
                     <th>Cost</th>
                 </tr>
                 <tr>
-                    <td>Lambda</td>
-                    <td>$1,000+</td>
+                    <td>CloudFront + S3</td>
+                    <td>$400+</td>
                 </tr>
                 <tr>
                     <td>API Gateway</td>
-                    <td>$1,000+</td>
+                    <td>$200+</td>
                 </tr>
                 <tr>
-                    <td>S3 + CloudFront</td>
-                    <td>$2,000+</td>
+                    <td>NLB + ECS</td>
+                    <td>$1,200+</td>
                 </tr>
                 <tr>
-                    <td>Cognito</td>
-                    <td>$2,500+</td>
-                </tr>
-                <tr>
-                    <td>WAF</td>
-                    <td>$500+</td>
+                    <td>DevOps Tools</td>
+                    <td>$200+</td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
-                    <td><strong>$5,000+</strong></td>
+                    <td><strong>$2,000+</strong></td>
                 </tr>
             </table>
         </div>
     </div>
 
     <div class="card">
-        <h2>Cost Comparison Chart</h2>
-        <div class="comparison-chart">
-            <table class="cost-table">
-                <tr>
-                    <th>Service</th>
-                    <th>Small Business</th>
-                    <th>Medium Enterprise</th>
-                    <th>Large Enterprise</th>
-                </tr>
-                <tr>
-                    <td>Lambda</td>
-                    <td>$10 - $100</td>
-                    <td>$100 - $1,000</td>
-                    <td>$1,000+</td>
-                </tr>
-                <tr>
-                    <td>API Gateway</td>
-                    <td>$10 - $100</td>
-                    <td>$100 - $1,000</td>
-                    <td>$1,000+</td>
-                </tr>
-                <tr>
-                    <td>S3 + CloudFront</td>
-                    <td>$20 - $200</td>
-                    <td>$200 - $2,000</td>
-                    <td>$2,000+</td>
-                </tr>
-                <tr>
-                    <td>Cognito</td>
-                    <td>$0 - $250</td>
-                    <td>$250 - $2,500</td>
-                    <td>$2,500+</td>
-                </tr>
-                <tr>
-                    <td>WAF</td>
-                    <td>$10 - $50</td>
-                    <td>$50 - $500</td>
-                    <td>$500+</td>
-                </tr>
-                <tr>
-                    <td><strong>Total</strong></td>
-                    <td><strong>$50 - $500</strong></td>
-                    <td><strong>$500 - $5,000</strong></td>
-                    <td><strong>$5,000+</strong></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2>Free Tier Availability</h2>
-        <table class="cost-table">
-            <tr>
-                <th>Service</th>
-                <th>Free Tier Limit</th>
-            </tr>
-            <tr>
-                <td>Lambda</td>
-                <td>1M free requests/month</td>
-            </tr>
-            <tr>
-                <td>API Gateway</td>
-                <td>1M REST API calls/month</td>
-            </tr>
-            <tr>
-                <td>S3</td>
-                <td>5GB storage, 20,000 GET requests</td>
-            </tr>
-            <tr>
-                <td>Cognito</td>
-                <td>50,000 MAUs free</td>
-            </tr>
-            <tr>
-                <td>WAF</td>
-                <td>1 web ACL, 10 rules (for first 12 months)</td>
-            </tr>
-        </table>
+        <h2>Cost Optimization Tips</h2>
+        <ul>
+            <li><strong>CloudFront:</strong> Use compression and cache policies to reduce data transfer</li>
+            <li><strong>ECS:</strong> Right-size tasks and enable auto-scaling</li>
+            <li><strong>Blue/Green:</strong> Schedule deployments during low-traffic periods</li>
+            <li><strong>Terraform:</strong> Use remote state with S3 (costs <$1/month)</li>
+            <li><strong>GitHub Actions:</strong> Clean up old workflows to stay within free tier</li>
+        </ul>
     </div>
 
     <footer>
-        <p>KTM Cost Analysis | Generated on <span id="date"></span></p>
-        <p>Note: All prices are estimates based on AWS EU West (Ireland) region pricing as of 2025.</p>
+        <p>Architecture Cost Analysis | Generated on <span id="date"></span></p>
+        <p>Note: Prices based on AWS us-east-1 region (2025). Actual costs may vary based on usage patterns.</p>
     </footer>
 
     <script>
